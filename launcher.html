@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SRB2 Launcher</title>
+<style>
+html, body {
+margin: 0;
+padding: 0;
+height: 100%;
+}
+
+.button {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100vw;
+height: 100vh;
+background-color: #000000;
+color: #ffffff !important;
+font-family: Arial, sans-serif;
+font-size: 24px;
+font-weight: bold;
+cursor: pointer;
+text-decoration: none !important;
+transition: background-color 0.3s, transform 0.2s;
+background-image: url('assets/srb2.png');
+background-size: 200px;
+background-repeat: no-repeat;
+background-position: center calc(50% - 80px);
+flex-direction: column;
+}
+
+.button:hover {
+background-color: #0066cc !important;
+transform: scale(1.02);
+}
+
+.button span {
+margin-top: 120px;
+text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+</style>
+</head>
+<body>
+<a id="button" class="button"><span>Launch Sonic Robo Blast 2</span></a>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const button = document.getElementById('button');
+button.addEventListener('click', launch);
+});
+
+function launch() {
+try {
+fetch("https://cdn.jsdelivr.net/gh/v3ntcr4wl3r/srb2-web@main/index.html?t="+Date.now())
+.then(response => response.text())
+.then(text => {
+const newWin = window.open("about:blank", "_blank");
+if (newWin) {
+newWin.document.open();
+newWin.document.write(text);
+newWin.document.close();
+}
+})
+.catch(error => {
+console.error('Error loading SRB2:', error);
+alert('Failed to load SRB2. Please check the console for details.');
+});
+} catch (error) {
+console.error('Error:', error);
+alert('An error occurred. Please check the console for details.');
+}
+}
+</script>
+</body>
+</html>
